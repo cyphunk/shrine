@@ -28,7 +28,7 @@ echo "## printer init"
 # run in background so that web server can remain in thread
 eval $(grep "printer_name" server.ini | sed -e 's/ *= */=/g')
 (
-sleep 10
+sleep 30
 echo "## status"
 ./status.sh 2>&1
 if lpstat -p | grep -q enabled; then 
