@@ -9,6 +9,7 @@ import shutil
 import subprocess
 # we import a printer object just to check when printer is busy
 import printer 
+import sys
 
 USER_AGENT="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.81 Safari/537.36"
 DEFAULT_INTERVAL=5
