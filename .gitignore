@@ -1,0 +1,7 @@
+dynamic_data/*
+__pycache__
+.monitor_last_printed_file.txt
+.print_counter.txt
+shrine.log
+*.pyc
+server.ini
