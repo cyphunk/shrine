@@ -46,8 +46,10 @@ class Instagram(threading.Thread):
         except:
             e = sys.exc_info()[0]
             print(e)
+            pass
         # we only want the last (latest we hope?) so this loop will run once. but the return from get_hashtags is not a list but a generator class, so we have to:
         print("self._posts type",type(self._posts))
+        
         for post in self._posts:
             downloaded = self._loader.download_post(post,self.hashtag)
             if downloaded:
@@ -88,6 +90,12 @@ class Instagram(threading.Thread):
                 now = time.time()
                 if now > lastexec + int(self.interval):
                     lastexec = now 
-                    self.get_latest_post()
+                    try:
+                        self.get_latest_post()
+                    except:
+                        e = sys.exc_info()[0]
+                        print(e)
+                        pass
+                        
             time.sleep(0.1)
         print("run finished")
