@@ -1,0 +1,15 @@
+[shrine]
+instagram_hashtag = foodporn
+instagram_interval = 10
+instagram_paused = False
+instagram_printer_wait = True
+printer_name = PRINTER
+printer_margin_enabled = False
+printer_interval = 1
+printer_auto_print = True
+admin_password = PASSWORD_CHANGE_ME
+upload_allowed = False
+[wifi]
+ssid = WIFI_SSID_THAT_PROVIDES_INTERNET
+password = PASSWORD_TO_CONNECT_TO_WIFI
+
