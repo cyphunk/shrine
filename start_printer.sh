@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 eval $(grep "printer_name" server.ini | sed -e 's/ *= */=/g')
+eval $(grep "printer_serial_baud" server.ini | sed -e 's/ *= */=/g')
+test "${printer_serial_baud}" != "" or printer_serial_baud=19200
+
 echo "SETUP '${printer_name}'"
 if test -e /usr/share/cups/model/zjiang/ZJ-58.ppd; then
     echo "Assuming adafruit ZJ-80 driver (raspberrypi?)"
@@ -19,8 +22,8 @@ USBURI=$(/usr/lib/cups/backend/usb 2>/dev/null | awk '{print $2}')
 if test "$USBURI" = ""; then
     # RPi4 /dev/serial0, RPi3 /dev/ttyAMA0
     test -e /dev/serial0 \
-    && URI="serial:/dev/serial0?baud=19200" \
-    || URI="serial:/dev/ttyAMA0?baud=19200"
+    && URI="serial:/dev/serial0?baud=${printer_serial_baud}" \
+    || URI="serial:/dev/ttyAMA0?baud=${printer_serial_baud}"
     echo "Assume serial (non usb) URI: $URI"
 else
     URI="$USBURI"

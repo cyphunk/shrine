@@ -4,6 +4,7 @@ instagram_interval = 10
 instagram_paused = False
 instagram_printer_wait = True
 printer_name = PRINTER
+printer_serial_baud = 19200
 printer_margin_enabled = False
 printer_interval = 1
 printer_auto_print = True

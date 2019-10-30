@@ -46,6 +46,7 @@ if not insta.paused:
     insta.start()
     
 lp.name = config['printer_name']
+lp.serial_baud = int(config['printer_serial_baud'] or 19200)
 lp.interval = int(config['printer_interval'])
 lp.margin_enabled = config.getboolean('printer_margin_enabled')
 lp.auto_print = config.getboolean('printer_auto_print')
@@ -114,6 +115,25 @@ class admin:
         elif args.command == 'printer_margin_disable':
             lp.margin_enabled = False
             config['printer_margin_enabled'] = "False"
+        elif args.command == 'printer_serial_baud_9600':
+            if lp.serial_baud != 9600:
+                # will reconfigure printers
+                lp.serial_baud = 9600
+                config['printer_serial_baud'] = 9600
+                config_write() #.ini read by start_printer.sh
+                exec = subprocess.Popen("./start_printer.sh", shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+                output = exec.communicate()[0]
+                print("printer setup",output)
+        elif args.command == 'printer_serial_baud_19200':
+            if lp.serial_baud != 19200:
+                # will reconfigure printers
+                lp.serial_baud = 19200
+                config['printer_serial_baud'] = 19200
+                config_write() #.ini read by start_printer.sh
+                exec = subprocess.Popen("./start_printer.sh", shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
+                output = exec.communicate()[0]
+                print("printer setup",output)
+
         elif args.command == 'upload_allow':
             UPLOAD_ALLOWED = True
             config['upload_allowed'] = "True"
@@ -255,8 +275,10 @@ class admin:
         <button name=command value=auto_print_disallow>disable</button></td></tr>
         <tr><td>Printer margin: <b>{lp.margin_enabled}</b>
         <span class=help>(help)<span class=helptext>when enabled a margin will be added after each print.</span></span>
-        </td><td colspan=2><button name=command value=printer_margin_enable>enable</button>
-        <button name=command value=printer_margin_disable>disable</button></td></tr>
+        <tr><td>Serial baud: <b>{lp.serial_baud}</b>
+        <span class=help>(help)<span class=helptext>9600 is for the exposed serial printer and 19200 is for the encased serial printer. The USB printer when connected will override all of these.</span></span>
+        </td><td colspan=2><button name=command value=printer_serial_baud_9600>9600 (exposed printer)</button><br>
+        <button name=command value=printer_serial_baud_19200>19200 (enclosed printer)</button></td></tr>
         <tr><td>Print current image <span class=help>(help)<span class=helptext>Print the latest image found from the downloaded instagram images. See the current list of images on the <a href=/ target=_blank>index page</a></span></span></td><td colspan=2><button name=command value=print_current>print current</button></tr>
         
         <tr><td>Print <a href=test.png target=_blank>test</a> image now</td><td colspan=2><button name=command value=print_test>print test.png</button></tr>
@@ -289,6 +311,7 @@ class admin:
         <tr><td>Instagram&nbsp;limits</td><td>Read up on <a href=https://developers.facebook.com/docs/instagram-api/overview/#rate-limiting>instagram rate limits</a></td></tr>
         <tr><td>Printer auto print</td><td><b>{lp.auto_print}</b></td></tr>
         <tr><td>Printer margin</td><td><b>{lp.margin_enabled}</b></td></tr>
+        <tr><td>Printer serial baud</td><td><b>{lp.serial_baud}</b></td></tr>
         <tr><td>Allow /upload</td><td><b>{UPLOAD_ALLOWED}</b></td></tr>
         <tr><td valign=top>Disk space:</td><td>Total: {SPACE_TOTAL} GB<br>Used: {SPACE_USED} GB<br>Free: <b>{SPACE_FREE} GB</b> </b></td></tr>
         <tr><td valign=top>Instagram/Upload space:</td><td><b>{data_size}</b></td></tr>
