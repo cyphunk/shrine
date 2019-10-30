@@ -275,6 +275,8 @@ class admin:
         <button name=command value=auto_print_disallow>disable</button></td></tr>
         <tr><td>Printer margin: <b>{lp.margin_enabled}</b>
         <span class=help>(help)<span class=helptext>when enabled a margin will be added after each print.</span></span>
+        </td><td colspan=2><button name=command value=printer_margin_enable>enable</button>
+        <button name=command value=printer_margin_disable>disable</button></td></tr>
         <tr><td>Serial baud: <b>{lp.serial_baud}</b>
         <span class=help>(help)<span class=helptext>9600 is for the exposed serial printer and 19200 is for the encased serial printer. The USB printer when connected will override all of these.</span></span>
         </td><td colspan=2><button name=command value=printer_serial_baud_9600>9600 (exposed printer)</button><br>
