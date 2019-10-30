@@ -26,23 +26,26 @@ echo "## printer init"
 
 # 10 seconds we hope is enough to connect to wifi and get ip address
 # run in background so that web server can remain in thread
-eval $(grep "printer_name" server.ini | sed -e 's/ *= */=/g')
 (
 sleep 30
 echo "## status"
 ./status.sh 2>&1
-if lpstat -p | grep -q enabled; then 
-    echo "print status"
-    (./status.sh; echo -e "\n\n") | lp -d "${printer_name}" -o raw "-"
-    # if test -e /dev/serial0 ; then
-    #     stty -F /dev/serial0 19200
-    #     ./status.sh > /dev/serial0
-    # elif test -e /dev/ttyAMA0
-    #     stty -F /dev/serial0 19200
-    #     ./status.sh > /dev/serial0
-    # else
-        
-fi
+) &
+
+# Monitor for status change in the first 2 minutes and print when changed
+eval $(grep "printer_name" server.ini | sed -e 's/ *= */=/g')
+(
+i=60
+statusold=""
+while [ 1 ] ; do
+ test $i -eq 0 && break
+ i=$(($i-1))
+ sleep 2
+ status=$(./status.sh)
+ test "$status" != "$statusold" \
+ && echo -e "$status\n\n" | lp -d "${printer_name}" -o raw "-"
+ statusold="$status"
+done
 ) &
 
 echo "## start web server"
