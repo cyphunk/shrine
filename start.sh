@@ -35,12 +35,12 @@ echo "## status"
 # Monitor for status change in the first 2 minutes and print when changed
 eval $(grep "printer_name" server.ini | sed -e 's/ *= */=/g')
 (
-i=60
+i=120
 statusold=""
 while [ 1 ] ; do
  test $i -eq 0 && break
- i=$(($i-1))
- sleep 2
+ i=$(($i-10))
+ sleep 10
  status=$(./status.sh)
  test "$status" != "$statusold" \
  && echo -e "$status\n\n" | lp -d "${printer_name}" -o raw "-"
