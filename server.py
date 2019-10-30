@@ -119,7 +119,7 @@ class admin:
             if lp.serial_baud != 9600:
                 # will reconfigure printers
                 lp.serial_baud = 9600
-                config['printer_serial_baud'] = 9600
+                config['printer_serial_baud'] = "9600"
                 config_write() #.ini read by start_printer.sh
                 exec = subprocess.Popen("./start_printer.sh", shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
                 output = exec.communicate()[0]
@@ -128,7 +128,7 @@ class admin:
             if lp.serial_baud != 19200:
                 # will reconfigure printers
                 lp.serial_baud = 19200
-                config['printer_serial_baud'] = 19200
+                config['printer_serial_baud'] = "19200"
                 config_write() #.ini read by start_printer.sh
                 exec = subprocess.Popen("./start_printer.sh", shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
                 output = exec.communicate()[0]
