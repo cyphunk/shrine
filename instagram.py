@@ -35,6 +35,8 @@ class Instagram(threading.Thread):
         self._lock = threading.Lock()
         self._posts = None
         self._loader = instaloader.Instaloader(user_agent=user_agent,filename_pattern="{date_utc}_UTC_{mediaid}_{shortcode}", download_videos=False, compress_json=False, download_geotags=False, download_comments=False, dirname_pattern=self.data_path+"/{target}")
+        # We handle FAST_UPDATE condition manually in code
+        
         # for geotags we get location error and supposedly this requires login https://github.com/instaloader/instaloader/issues/376
         
         #https://realpython.com/intro-to-python-threading/
@@ -51,6 +53,8 @@ class Instagram(threading.Thread):
         # we only want the last (latest we hope?) so this loop will run once. but the return from get_hashtags is not a list but a generator class, so we have to:
         print("self._posts type",type(self._posts))
         
+        # Notice we will only download first
+        # however ._posts is specially and we have it iterate to populate object
         for post in self._posts:
             downloaded = self._loader.download_post(post,self.hashtag)
             if downloaded:
