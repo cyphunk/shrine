@@ -146,7 +146,7 @@ class admin:
         elif args.command == 'print_current':
             lp.print_latest_file()
         elif args.command == 'print_test':
-            lp.print("./test.png")
+            lp.print("./static/test.png")
         elif args.command == 'print_diagnostics':
             str = ""
             exec = subprocess.Popen("ip addr show dev eth0 | grep 'inet ' | awk '{print $2}'", shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
@@ -168,6 +168,8 @@ class admin:
             output = doprint.communicate()[0]
             lp.counter.increment()
             print(output)
+        elif args.command == 'print_reset':
+            lp.reset()
             
             
 
@@ -283,9 +285,11 @@ class admin:
         <button name=command value=printer_serial_baud_19200>19200 (enclosed printer)</button></td></tr>
         <tr><td>Print current image <span class=help>(help)<span class=helptext>Print the latest image found from the downloaded instagram images. See the current list of images on the <a href=/ target=_blank>index page</a></span></span></td><td colspan=2><button name=command value=print_current>print current</button></tr>
         
-        <tr><td>Print <a href=test.png target=_blank>test</a> image now</td><td colspan=2><button name=command value=print_test>print test.png</button></tr>
+        <tr><td>Print <a href=/static/test.png target=_blank>test</a> image now</td><td colspan=2><button name=command value=print_test>print test.png</button></tr>
         
         <tr><td>Print diagnostic info</td><td colspan=2><button name=command value=print_diagnostics>print diagnostics</button></tr>
+
+        <tr><td>Reset print queue</td><td colspan=2><button name=command value=print_reset>reset</button></tr>
         
         <tr><td colspan=3><h3>Other</h2></td></tr>
         <tr><td><a href=/upload target=_blank>/upload</a> allowed: <b>{UPLOAD_ALLOWED}</b> <span class=help>(help)<span class=helptext>If enalbed anyone can upload an image which will be printed by going to the <a href=/upload target=_blank>/upload url</a>. </span></span>

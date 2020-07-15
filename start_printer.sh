@@ -34,6 +34,10 @@ set -x
 /usr/sbin/lpadmin -p "${printer_name}" -E -v $URI -P $DRIVER
 set +x
 
+# clear queue if it exists
+lpstat -o
+cancel -a
+
 #echo "sending status test"
 #echo "." | lp -d ${printer_name}
 

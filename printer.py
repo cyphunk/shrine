@@ -102,7 +102,12 @@ class Printer(threading.Thread):
         return self.counter.get()
         
     def reset(self):
-        self._lp.cancelAllJobs()
+        # does not work
+        #self._lp.cancelAllJobs()
+        for job in self._lp.getJobs():
+            lp.cancelJob(job)
+
+
     def status(self):
         busy = self.busy()
         count = self.get_counter()
