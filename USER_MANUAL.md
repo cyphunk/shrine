@@ -10,7 +10,7 @@ These steps can be summarized as:
 - Connect printer to shrine
 - Turn on shrine
 - Configure shrine  
-  http//lwa/admin
+  http://lwa/admin
 
 Detailed steps:
 
