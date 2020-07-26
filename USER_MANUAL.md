@@ -16,7 +16,7 @@ Detailed steps:
 
 1.    **Wifi: configure internet link on router**
       1.  Power up Shrine Wifi Router  
-      Plugin the small Shrine Wifi router to a seperate usb power source. Do not use the usb of raspberry pi.
+      Plugin the small Shrine Wifi router to a seperate usb power source. Do not use the usb of raspberry pi during initial testing and configuration. Later after you have have confirmed everything works you can power the wifi router through the Raspberry Pi's USB.
       2.  Connect to "Petwo" wifi  
       Using your own workstation connect to the Shrine Wifi network "Petwo" with password written on device.
       3.  Access Router Admin interface: http://192.168.8.1  
