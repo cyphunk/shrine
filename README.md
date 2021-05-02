@@ -4,24 +4,25 @@
 A object for use by the artist duo http://www.frankenrobbert.com to be
 integrated into other works
 
-
 ## Physical components
-
 Tested with:
-
 * Raspberry Pi 4 or local PC (for USB printers)
 * Adafruit ZJ-80 Serial thermal printers
 * Cheaper USB thermal printers (e.g. [here](https://www.ebay.de/itm/Excelvan-USB-58mm-Thermal-Dot-Receipt-Printer-Kassendrucker-schwarz-5890K-EU/123901821203?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649))
 
 
 ## Start
-
 Copy the config file and change the admin password therein:
     
     cp server.ini.example server.ini
 
+Install required python libraries `webpy` `pycups` `WSGIserver` `instaloader`:
+
+    sudo pip install -r requirements.txt
+
 Run start script:
-    ./start.sh
+
+    sudo ./start.sh
 
 Starting as normal user will start server on port 8080, when starting with root the web UI starts on port 80
 
@@ -39,17 +40,27 @@ To start individual elements instead of using ``start.sh``:
 * ``start_wifi.sh`` will setup wifi network. Setup persists. Check with ``./status.sh``
 * ``sudo python3 server.py``
 
+
 ## Setup
+Steps assuming using Adafrui ZJ-80 Serial printer. Assumes Raspberry Pi has internet connectivity so packages can be downloaded. Tested with Raspberry Pi 3 and 4.
 
-Install the ZJ-80 drivers from [Adafruit](https://github.com/adafruit/zj-58) or  [klirichek](https://github.com/klirichek/zj-58)
+Enable serial port on Raspberry Pi, using configuration menu tool (_or manually add `enable_uart=1` to `/boot/config.txt`_):
 
-Setup and test the printer.
+    raspi-config
 
-Test on RPRi4 with serial printer (on v3 change seria0 to ttyAMA0):
+Install the ZJ-80 drivers from [Adafruit](https://github.com/adafruit/zj-58) (_or alternative [klirichek](https://github.com/klirichek/zj-58)_):
+
+    sudo apt-get update
+    sudo apt-get install git cups wiringpi build-essential libcups2-dev libcupsimage2-dev
+    git clone https://github.com/adafruit/zj-58
+    cd zj-58/ && make && sudo ./install
+
+
+Test print on RPRi4 with serial printer (on v3 change serial0 to ttyAMA0):
 
     sudo /usr/sbin/lpadmin -p ZJ-58 -E -v serial:/dev/serial0?baud=19200 -P /usr/share/cups/model/zjiang/ZJ-58.ppd
 
-Test on PC with USB printer:
+Alternatively test on PC with USB printer:
     
     sudo systemctl start org.cups.cupsd.service
     sudo /usr/sbin/lpadmin -p ZJ-58 -E -v $URI -P /usr/share/cups/model/zjiang/ZJ-58.ppd
@@ -58,9 +69,11 @@ Or see ``start_printer.sh``
 
 ![printed_bunch](.readme_images/printed_bunch.jpg "printed bunch")
 
+
 ## Trouble shooting
 
 * [Information about Instagram rate limiting](https://developers.facebook.com/docs/instagram-api/overview/#rate-limiting) -- see also headers server returns on requests. Not sure what the restrictions are for un-registered apps -- 200 requests per hour?
+
 
 ## Direct interaction
 
@@ -83,7 +96,8 @@ can try various commands found with:
     
 [More examples](https://github.com/adafruit/Adafruit_CircuitPython_Thermal_Printer/blob/master/adafruit_thermal_printer/thermal_printer.py)
 
-### lost of internet
+
+### loss of internet
 
 Added try/except and hope this will no longer crash the instagram thread:
 
