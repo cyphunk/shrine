@@ -1,7 +1,10 @@
 #web.py==0.40
 #web.py==0.40-dev1
-# next web.py one solves the StopIteration issue?
--e git+https://github.com/webpy/webpy.git#egg=webpy
+## next web.py one solves the StopIteration issue?
+#-e git+https://github.com/webpy/webpy.git#egg=webpy
+## ^ Error: 2021: Requested web-py from git+https://github.com/webpy/webpy.git#egg=webpy (from -r requirements.txt (line 4)) has different name in metadata: 'web.py'
+## Try https://github.com/webpy/webpy/releases/tag/0.50 from March 2020, the first version since we last tested from git.
+web.py==0.51
 WSGIserver==1.3
 pycups==1.9.74
 instaloader==4.2.10
