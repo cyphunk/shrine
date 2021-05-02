@@ -6,18 +6,35 @@ integrated into other works
 
 ## Physical components
 Tested with:
-* Raspberry Pi 4 with Raspbian buster version from [2019-07-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/) or [2019-09-30](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/)
+* Raspberry Pi 4 & 3 with Raspbian buster version from [2019-07-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/) or [2019-09-30](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/)
 * Also tested with local PC (for USB printers)
 * Adafruit ZJ-80 Serial thermal printers
 * Cheaper USB thermal printers (e.g. [here](https://www.ebay.de/itm/Excelvan-USB-58mm-Thermal-Dot-Receipt-Printer-Kassendrucker-schwarz-5890K-EU/123901821203?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649))
 
+## Setup
 
-## Start Software
+Enable serial uart with config menu (_or enable_uart=1 in /boot/config.txt_): 
+
+    raspi-config
+
+Install the ZJ-80 drivers from [Adafruit](https://github.com/adafruit/zj-58) (_or alternative [klirichek](https://github.com/klirichek/zj-58)_):
+
+    sudo apt-get update
+    sudo apt-get install git cups wiringpi build-essential libcups2-dev libcupsimage2-dev
+    git clone https://github.com/adafruit/zj-58
+    cd zj-58/ && make && sudo ./install
+
+Test print on Raspberry Pi 4 with serial printer (on v3 change serial0 to ttyAMA0):
+
+    sudo /usr/sbin/lpadmin -p ZJ-58 -E -v serial:/dev/serial0?baud=19200 -P /usr/share/cups/model/zjiang/ZJ-58.ppd
+
+## Start
+
 Copy the config file and change the admin password therein:
     
     cp server.ini.example server.ini
 
-Install required python libraries `webpy` `pycups` `WSGIserver` `instaloader`:
+Install required python libraries `web.py` `pycups` `WSGIserver` `instaloader`:
 
     sudo pip3 install -r requirements.txt
 
@@ -42,31 +59,17 @@ To start individual elements instead of using ``start.sh``:
 * ``sudo python3 server.py``
 
 
-## Setup Hardware
-Steps assuming using Adafrui ZJ-80 Serial printer. Assumes Raspberry Pi has internet connectivity so packages can be downloaded. Tested with Raspberry Pi 3 and 4.
+## Additional setup tips
 
-Enable serial port on Raspberry Pi, using configuration menu tool (_or manually add `enable_uart=1` to `/boot/config.txt`_):
+* ZJ-80 driver options: [Adafruit](https://github.com/adafruit/zj-58) or alternative [klirichek](https://github.com/klirichek/zj-58)
 
-    raspi-config
-
-Install the ZJ-80 drivers from [Adafruit](https://github.com/adafruit/zj-58) (_or alternative [klirichek](https://github.com/klirichek/zj-58)_):
-
-    sudo apt-get update
-    sudo apt-get install git cups wiringpi build-essential libcups2-dev libcupsimage2-dev
-    git clone https://github.com/adafruit/zj-58
-    cd zj-58/ && make && sudo ./install
-
-
-Test print on RPRi4 with serial printer (on v3 change serial0 to ttyAMA0):
-
-    sudo /usr/sbin/lpadmin -p ZJ-58 -E -v serial:/dev/serial0?baud=19200 -P /usr/share/cups/model/zjiang/ZJ-58.ppd
-
-Alternatively test on PC with USB printer:
+* Test ZJ-80 driver on Linux PC with USB printer:
     
-    sudo systemctl start org.cups.cupsd.service
+    sudo systemctl start cups
     sudo /usr/sbin/lpadmin -p ZJ-58 -E -v $URI -P /usr/share/cups/model/zjiang/ZJ-58.ppd
 
-Or see ``start_printer.sh``
+* ``start_printer.sh`` for other printer testing and various lp management commands
+
 
 ![printed_bunch](.readme_images/printed_bunch.jpg "printed bunch")
 
@@ -74,8 +77,9 @@ Or see ``start_printer.sh``
 ## Trouble shooting
 
 * [Information about Instagram rate limiting](https://developers.facebook.com/docs/instagram-api/overview/#rate-limiting) -- see also headers server returns on requests. Not sure what the restrictions are for un-registered apps -- 200 requests per hour?
-
 * If issues with python libraries or driver persist, consider downgrading to a Raspbian version that is closer to what this software was originally developed with around the date of 2019-10-29. (such as [2019-07-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/) or [2019-09-30](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/))
+* pip install error `fatal error: cups/cups.h: No such file or directory` required installing `sudo apt-get install libcups2-dev`
+
 ## Direct interaction
 
 can try various commands found with:
