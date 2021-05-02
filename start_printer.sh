@@ -15,7 +15,8 @@ fi
 if grep -qi raspbian /etc/issue; then
     true
 else
-    systemctl start org.cups.cupsd.service
+    systemctl start org.cups.cupsd.service \
+    || systemctl start cups
 fi
 
 USBURI=$(/usr/lib/cups/backend/usb 2>/dev/null | awk '{print $2}')
