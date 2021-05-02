@@ -11,7 +11,7 @@ Tested with:
 * Cheaper USB thermal printers (e.g. [here](https://www.ebay.de/itm/Excelvan-USB-58mm-Thermal-Dot-Receipt-Printer-Kassendrucker-schwarz-5890K-EU/123901821203?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649))
 
 
-## Start
+## Start Software
 Copy the config file and change the admin password therein:
     
     cp server.ini.example server.ini
@@ -41,7 +41,7 @@ To start individual elements instead of using ``start.sh``:
 * ``sudo python3 server.py``
 
 
-## Setup
+## Setup Hardware
 Steps assuming using Adafrui ZJ-80 Serial printer. Assumes Raspberry Pi has internet connectivity so packages can be downloaded. Tested with Raspberry Pi 3 and 4.
 
 Enable serial port on Raspberry Pi, using configuration menu tool (_or manually add `enable_uart=1` to `/boot/config.txt`_):
