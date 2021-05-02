@@ -6,7 +6,8 @@ integrated into other works
 
 ## Physical components
 Tested with:
-* Raspberry Pi 4 with Raspbian version `2019-07-10-raspbian-buster', or local PC (for USB printers)
+* Raspberry Pi 4 with Raspbian buster version from [2019-07-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/) or [2019-09-30](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/)
+* Also tested with local PC (for USB printers)
 * Adafruit ZJ-80 Serial thermal printers
 * Cheaper USB thermal printers (e.g. [here](https://www.ebay.de/itm/Excelvan-USB-58mm-Thermal-Dot-Receipt-Printer-Kassendrucker-schwarz-5890K-EU/123901821203?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649))
 
@@ -74,8 +75,7 @@ Or see ``start_printer.sh``
 
 * [Information about Instagram rate limiting](https://developers.facebook.com/docs/instagram-api/overview/#rate-limiting) -- see also headers server returns on requests. Not sure what the restrictions are for un-registered apps -- 200 requests per hour?
 
-* If issues with python libraries or driver persist, consider downgrading to a Raspbian version that is closer to what this software was originally developed with around the date of 2019-10-29: `2019-07-10-raspbian-buster`
-
+* If issues with python libraries or driver persist, consider downgrading to a Raspbian version that is closer to what this software was originally developed with around the date of 2019-10-29. (such as [2019-07-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/) or [2019-09-30](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/))
 ## Direct interaction
 
 can try various commands found with:
