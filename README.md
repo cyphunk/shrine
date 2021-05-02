@@ -18,7 +18,7 @@ Copy the config file and change the admin password therein:
 
 Install required python libraries `webpy` `pycups` `WSGIserver` `instaloader`:
 
-    sudo pip install -r requirements.txt
+    sudo pip3 install -r requirements.txt
 
 Run start script:
 
