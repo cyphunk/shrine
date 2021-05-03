@@ -13,6 +13,13 @@ Tested with:
 
 ## Setup
 
+Physically connect printer. For Adafruit or ZJ-80 printer:
+- Printer `Black` wire = `GND` to Raspberry Pi pin `6`
+- Printer `Yellow` wire = `TX` to Raspberry Pi pin `10`
+- Printer `Green` wire = `RX` to Raspberry Pi pin `8`
+- Printer `Vcc` Power pin to Raspberry Pi `3.3v` pin of
+- (more detail at [pinout.xyz](https://pinout.xyz))
+
 Enable serial uart with config menu (_or enable_uart=1 in /boot/config.txt_): 
 
     raspi-config
@@ -20,11 +27,11 @@ Enable serial uart with config menu (_or enable_uart=1 in /boot/config.txt_):
 Install the ZJ-80 drivers from [Adafruit](https://github.com/adafruit/zj-58) (_or alternative [klirichek](https://github.com/klirichek/zj-58)_):
 
     sudo apt-get update
-    sudo apt-get install git cups wiringpi build-essential libcups2-dev libcupsimage2-dev
+    sudo apt-get install -y git cups wiringpi build-essential libcups2-dev libcupsimage2-dev
     git clone https://github.com/adafruit/zj-58
     cd zj-58/ && make && sudo ./install
 
-Test print on Raspberry Pi 4 with serial printer (on v3 change serial0 to ttyAMA0):
+Test print on Raspberry Pi v4 with serial printer (on v3 change serial0 to ttyAMA0):
 
     sudo /usr/sbin/lpadmin -p ZJ-58 -E -v serial:/dev/serial0?baud=19200 -P /usr/share/cups/model/zjiang/ZJ-58.ppd
 
@@ -36,7 +43,8 @@ Copy the config file and change the admin password therein:
 
 Install required python libraries `web.py` `pycups` `WSGIserver` `instaloader`:
 
-    sudo pip3 install -r requirements.txt
+    sudo apt-get install -y python3-
+    sudo python3 -m pip install -r requirements.txt
 
 Run start script:
 
