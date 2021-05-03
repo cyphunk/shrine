@@ -85,7 +85,6 @@ To start individual elements instead of using ``start.sh``:
 ## Trouble shooting
 
 * [Information about Instagram rate limiting](https://developers.facebook.com/docs/instagram-api/overview/#rate-limiting) -- see also headers server returns on requests. Not sure what the restrictions are for un-registered apps -- 200 requests per hour?
-* If issues with python libraries or driver persist, consider downgrading to a Raspbian version that is closer to what this software was originally developed with around the date of 2019-10-29. (such as [2019-07-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/) or [2019-09-30](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/))
 * pip install error `fatal error: cups/cups.h: No such file or directory` required installing `sudo apt-get install libcups2-dev`
 
 ## Direct interaction
