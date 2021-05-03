@@ -6,7 +6,7 @@ integrated into other works
 
 ## Physical components
 Tested with:
-* Raspberry Pi 4 & 3 with Raspbian buster version from [2019-07-10](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-07-12/) or [2019-09-30](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/)
+* Raspberry Pi 4 & 3 with Raspbian buster version from [2021-03-04](https://downloads.raspberrypi.org/raspios_armhf/images/raspios_armhf-2021-03-25/2021-03-04-raspios-buster-armhf.zip), previously tested with [2019-09-30](https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/)
 * Also tested with local PC (for USB printers)
 * Adafruit ZJ-80 Serial thermal printers
 * Cheaper USB thermal printers (e.g. [here](https://www.ebay.de/itm/Excelvan-USB-58mm-Thermal-Dot-Receipt-Printer-Kassendrucker-schwarz-5890K-EU/123901821203?ssPageName=STRK%3AMEBIDX%3AIT&_trksid=p2057872.m2749.l2649))
@@ -17,7 +17,7 @@ Physically connect printer. For Adafruit or ZJ-80 printer:
 - Printer `Black` wire = `GND` to Raspberry Pi pin `6`
 - Printer `Yellow` wire = `TX` to Raspberry Pi pin `10`
 - Printer `Green` wire = `RX` to Raspberry Pi pin `8`
-- Printer `Vcc` Power pin to Raspberry Pi `3.3v` pin of
+- Printer `Vcc` Power pin to Raspberry Pi `3.3v` pin `1`
 - (more detail at [pinout.xyz](https://pinout.xyz))
 
 Enable serial uart with config menu (_or enable_uart=1 in /boot/config.txt_): 
